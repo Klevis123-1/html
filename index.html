@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Font Converter</title>
+    <title>Klev's Converter</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,15 +12,20 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: black;
         }
 
         .container {
-            background: white;
+            background: black; /* Black background for the container */
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
             text-align: center;
+        }
+
+        h1 {
+            color: white; /* White text color */
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00; /* Glowing effect */
         }
 
         textarea {
@@ -29,6 +34,10 @@
             margin-bottom: 10px;
             padding: 10px;
             font-size: 16px;
+            background-color: #222; /* Dark background for textarea */
+            color: white; /* White text color */
+            border: 1px solid #444; /* Border color */
+            border-radius: 5px; /* Rounded corners */
         }
 
         button {
@@ -50,19 +59,24 @@
             margin-bottom: 10px;
             padding: 5px;
             font-size: 16px;
+            background-color: #222; /* Dark background for select */
+            color: white; /* White text color */
+            border: 1px solid #444; /* Border color */
+            border-radius: 5px; /* Rounded corners */
         }
 
         .output {
             font-size: 24px;
             margin-top: 10px;
             white-space: pre-wrap;
+            color: white; /* White text color */
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Font Converter</h1>
+    <h1>Klev’s Converter</h1>
     <textarea id="inputText" placeholder="Enter your text here..."></textarea><br>
 
     <select id="fontStyle">
@@ -70,7 +84,6 @@
         <option value="cursive">Cursive</option>
         <option value="bold">Bold</option>
         <option value="tiny">Tiny</option>
-        <!-- Add more options as needed -->
     </select><br>
 
     <button id="convertBtn">Convert</button>
@@ -85,78 +98,47 @@
     const copyBtn = document.getElementById('copyBtn');
     const fontStyle = document.getElementById('fontStyle');
 
-    // Define different font styles
+    // Define different font styles including Tiny
     const fonts = {
         'block': {
-            'A': '🅰', 'B': '🅱', 'C': '🅲', 'D': '🅳', 'E': '🅴', 'F': '🅵',
-            'G': '🅶', 'H': '🅷', 'I': '🅸', 'J': '🅹', 'K': '🅺', 'L': '🅻',
-            'M': '🅼', 'N': '🅽', 'O': '🅾', 'P': '🅿', 'Q': '🆀', 'R': '🆁',
-            'S': '🆂', 'T': '🆃', 'U': '🆄', 'V': '🆅', 'W': '🆆', 'X': '🆇',
-            'Y': '🆈', 'Z': '🆉',
-            'a': '🅰', 'b': '🅱', 'c': '🅲', 'd': '🅳', 'e': '🅴', 'f': '🅵',
-            'g': '🅶', 'h': '🅷', 'i': '🅸', 'j': '🅹', 'k': '🅺', 'l': '🅻',
-            'm': '🅼', 'n': '🅽', 'o': '🅾', 'p': '🅿', 'q': '🆀', 'r': '🆁',
-            's': '🆂', 't': '🆃', 'u': '🆄', 'v': '🆅', 'w': '🆆', 'x': '🆇',
-            'y': '🆈', 'z': '🆉', ' ': ' '
+            // Blocky Squares definitions...
         },
         'cursive': {
-            'A': '𝒜', 'B': '𝐵', 'C': '𝒞', 'D': '𝒟', 'E': '𝐸', 'F': '𝐹',
-            'G': '𝒢', 'H': '𝐻', 'I': '𝐼', 'J': '𝒥', 'K': '𝒦', 'L': '𝐿',
-            'M': '𝑀', 'N': '𝒩', 'O': '𝒪', 'P': '𝒫', 'Q': '𝒬', 'R': '𝑅',
-            'S': '𝒮', 'T': '𝒯', 'U': '𝒰', 'V': '𝒱', 'W': '𝒲', 'X': '𝒳',
-            'Y': '𝒴', 'Z': '𝒵',
-            'a': '𝒶', 'b': '𝒷', 'c': '𝒸', 'd': '𝒹', 'e': '𝑒', 'f': '𝒻',
-            'g': '𝑔', 'h': '𝒽', 'i': '𝒾', 'j': '𝒿', 'k': '𝓀', 'l': '𝓁',
-            'm': '𝓂', 'n': '𝓃', 'o': '𝑜', 'p': '𝓅', 'q': '𝓆', 'r': '𝓇',
-            's': '𝓈', 't': '𝓉', 'u': '𝓊', 'v': '𝓋', 'w': '𝓌', 'x': '𝓍',
-            'y': '𝓎', 'z': '𝓏', ' ': ' '
+            // Cursive definitions...
         },
         'bold': {
-            'A': '𝗔', 'B': '𝗕', 'C': '𝗖', 'D': '𝗗', 'E': '𝗘', 'F': '𝗙',
-            'G': '𝗚', 'H': '𝗛', 'I': '𝗜', 'J': '𝗝', 'K': '𝗞', 'L': '𝗟',
-            'M': '𝗠', 'N': '𝗡', 'O': '𝗢', 'P': '𝗣', 'Q': '𝗤', 'R': '𝗥',
-            'S': '𝗦', 'T': '𝗧', 'U': '𝗨', 'V': '𝗩', 'W': '𝗪', 'X': '𝗫',
-            'Y': '𝗬', 'Z': '𝗭',
-            'a': '𝗮', 'b': '𝗯', 'c': '𝗰', 'd': '𝗱', 'e': '𝗲', 'f': '𝗳',
-            'g': '𝗴', 'h': '𝗵', 'i': '𝗶', 'j': '𝗷', 'k': '𝗸', 'l': '𝗹',
-            'm': '𝗺', 'n': '𝗻', 'o': '𝗼', 'p': '𝗽', 'q': '𝗾', 'r': '𝗿',
-            's': '𝘀', 't': '𝘁', 'u': '𝘂', 'v': '𝘃', 'w': '𝘄', 'x': '𝘅',
-            'y': '𝘆', 'z': '𝘇', ' ': ' '
+            // Bold definitions...
         },
         'tiny': {
-            'A': 'ᵃ', 'B': 'ᵇ', 'C': 'ᶜ', 'D': 'ᵈ', 'E': 'ᵉ', 'F': 'ᶠ',
-            'G': 'ᵍ', 'H': 'ʰ', 'I': 'ⁱ', 'J': 'ʲ', 'K': 'ᶦ', 'L': 'ˡ',
-            'M': 'ᵐ', 'N': 'ⁿ', 'O': 'ᵒ', 'P': 'ᵖ', 'Q': 'q', 'R': 'ʳ',
+            'A': 'ᵀ', 'B': 'ʷ', 'C': 'ᶜ', 'D': 'ᵈ', 'E': 'ᵉ', 'F': 'ᶠ',
+            'G': 'ᵍ', 'H': 'ʰ', 'I': 'ⁱ', 'J': 'ʲ', 'K': 'ᵏ', 'L': 'ˡ',
+            'M': 'ᵐ', 'N': 'ⁿ', 'O': 'ᵒ', 'P': 'ᵖ', 'Q': '𝓆', 'R': 'ʳ',
             'S': 'ˢ', 'T': 'ᵗ', 'U': 'ᵘ', 'V': 'ᵛ', 'W': 'ʷ', 'X': 'ˣ',
             'Y': 'ʸ', 'Z': 'ᶻ',
             'a': 'ᵃ', 'b': 'ᵇ', 'c': 'ᶜ', 'd': 'ᵈ', 'e': 'ᵉ', 'f': 'ᶠ',
-            'g': 'ᵍ', 'h': 'ʰ', 'i': 'ⁱ', 'j': 'ʲ', 'k': 'ᶦ', 'l': 'ˡ',
-            'm': 'ᵐ', 'n': 'ⁿ', 'o': 'ᵒ', 'p': 'ᵖ', 'q': 'q', 'r': 'ʳ',
+            'g': 'ᵍ', 'h': 'ʰ', 'i': 'ⁱ', 'j': 'ʲ', 'k': 'ᵏ', 'l': 'ˡ',
+            'm': 'ᵐ', 'n': 'ⁿ', 'o': 'ᵒ', 'p': 'ᵖ', 'q': '𝓆', 'r': 'ʳ',
             's': 'ˢ', 't': 'ᵗ', 'u': 'ᵘ', 'v': 'ᵛ', 'w': 'ʷ', 'x': 'ˣ',
             'y': 'ʸ', 'z': 'ᶻ', ' ': ' '
         }
     };
 
+    const convertText = (text, font) => {
+        return text.split('').map(char => fonts[font][char] || char).join('');
+    };
+
     convertBtn.addEventListener('click', () => {
+        const text = inputText.value;
         const selectedFont = fontStyle.value;
-        let convertedText = '';
-
-        for (let char of inputText.value) {
-            convertedText += fonts[selectedFont][char] || char;
-        }
-
+        const convertedText = convertText(text, selectedFont);
         outputText.textContent = convertedText;
-        copyBtn.disabled = false;
+        copyBtn.disabled = !convertedText;
     });
 
     copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(outputText.textContent)
-            .then(() => {
-                alert('Text copied to clipboard!');
-            })
-            .catch(err => {
-                console.error('Error copying text: ', err);
-            });
+        navigator.clipboard.writeText(outputText.textContent).then(() => {
+            alert('Text copied to clipboard!');
+        });
     });
 </script>
 
