@@ -13,6 +13,18 @@
             height: 100vh;
             margin: 0;
             background-color: #d3d3d3; /* Grey background */
+            overflow: hidden;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(211, 211, 211, 0.5); /* Semi-transparent grey */
+            backdrop-filter: blur(10px); /* Blurry effect */
+            z-index: -1; /* Behind the content */
         }
 
         .container {
@@ -75,6 +87,8 @@
 </head>
 <body>
 
+<div class="background"></div>
+
 <div class="container">
     <h1>Klev’s Converter</h1>
     <textarea id="inputText" placeholder="Enter your text here..."></textarea><br>
@@ -84,6 +98,8 @@
         <option value="cursive">Cursive</option>
         <option value="bold">Bold</option>
         <option value="tiny">Tiny</option>
+        <option value="boldItalic">Bold Italic</option>
+        <option value="italic">Italic</option>
     </select><br>
 
     <button id="convertBtn">Convert</button>
@@ -98,7 +114,7 @@
     const copyBtn = document.getElementById('copyBtn');
     const fontStyle = document.getElementById('fontStyle');
 
-    // Define different font styles including Tiny
+    // Define different font styles including Tiny, Bold Italic, and Italic
     const fonts = {
         'block': {
             'A': '🅰', 'B': '🅱', 'C': '🅲', 'D': '🅳', 'E': '🅴', 'F': '🅵',
@@ -147,6 +163,30 @@
             'm': 'ᵐ', 'n': 'ⁿ', 'o': 'ᵒ', 'p': 'ᵖ', 'q': '𝓆', 'r': 'ʳ',
             's': 'ˢ', 't': 'ᵗ', 'u': 'ᵘ', 'v': 'ᵛ', 'w': 'ʷ', 'x': 'ˣ',
             'y': 'ʸ', 'z': 'ᶻ', ' ': ' '
+        },
+        'boldItalic': {
+            'A': '𝑨', 'B': '𝑩', 'C': '𝑪', 'D': '𝑫', 'E': '𝑬', 'F': '𝑭',
+            'G': '𝑮', 'H': '𝑯', 'I': '𝑰', 'J': '𝑱', 'K': '𝑲', 'L': '𝑳',
+            'M': '𝑴', 'N': '𝑵', 'O': '𝑶', 'P': '𝑷', 'Q': '𝑸', 'R': '𝑹',
+            'S': '𝑺', 'T': '𝑻', 'U': '𝑼', 'V': '𝑽', 'W': '𝑾', 'X': '𝑿',
+            'Y': '𝒀', 'Z': '𝒁',
+            'a': '𝒂', 'b': '𝒃', 'c': '𝒄', 'd': '𝒅', 'e': '𝒆', 'f': '𝒇',
+            'g': '𝒈', 'h': '𝒉', 'i': '𝒊', 'j': '𝒋', 'k': '𝒌', 'l': '𝒍',
+            'm': '𝒎', 'n': '𝒏', 'o': '𝒐', 'p': '𝒑', 'q': '𝒒', 'r': '𝒓',
+            's': '𝒔', 't': '𝒕', 'u': '𝒖', 'v': '𝒗', 'w': '𝒘', 'x': '𝒙',
+            'y': '𝒚', 'z': '𝒛', ' ': ' '
+        },
+        'italic': {
+            'A': '𝐴', 'B': '𝐵', 'C': '𝐶', 'D': '𝐷', 'E': '𝐸', 'F': '𝐹',
+            'G': '𝐺', 'H': '𝐻', 'I': '𝐼', 'J': '𝐽', 'K': '𝐾', 'L': '𝐿',
+            'M': '𝑀', 'N': '𝑁', 'O': '𝑂', 'P': '𝑃', 'Q': '𝑄', 'R': '𝑅',
+            'S': '𝑆', 'T': '𝑇', 'U': '𝑈', 'V': '𝑉', 'W': '𝑊', 'X': '𝑋',
+            'Y': '𝑌', 'Z': '𝑍',
+            'a': '𝑎', 'b': '𝑏', 'c': '𝑐', 'd': '𝑑', 'e': '𝑒', 'f': '𝑓',
+            'g': '𝑔', 'h': 'ℎ', 'i': '𝑖', 'j': '𝑗', 'k': '𝑘', 'l': '𝑙',
+            'm': '𝑚', 'n': '𝑛', 'o': '𝑜', 'p': '𝑝', 'q': '𝑞', 'r': '𝑟',
+            's': '𝑠', 't': '𝑡', 'u': '𝑢', 'v': '𝑣', 'w': '𝑤', 'x': '𝑥',
+            'y': '𝑦', 'z': '𝑧', ' ': ' '
         }
     };
 
